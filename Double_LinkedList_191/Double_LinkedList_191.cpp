@@ -40,7 +40,7 @@ void DoubleLinkedList::addNode() {
 	newNode->noMhs = nim;//step2
 	newNode->name = nm; //step2
 
-	/ insert a node in the biginning of a doubly - linked list /
+	/*insert a node in the biginning of a doubly - linked list*/
 		if (START == NULL || nim <= START->noMhs) {
 			if (START != NULL && nim == START->noMhs) {
 				cout << "\nDuplicate number not allowed" << endl;
@@ -53,3 +53,32 @@ void DoubleLinkedList::addNode() {
 			START = newNode; //step6
 			return;
 		}
+	/* Inserting a Node Beetwen The Nodes in the List */
+		Node * current = START; //step1.a
+	Node* previous = NULL; //step1.b
+	while (current->next != NULL && current->next->noMhs < nim) //step1.c
+	{
+		previous = current; //1.d
+		current = current->next; //1.e
+	}
+
+	if (current->next != NULL && nim == current->next->noMhs) {
+		cout << "\nDuplicate roll numbers not allowed" << endl;
+		return;
+	}
+	newNode->next = current->next; //step4
+	newNode->prev = current; //step5
+	if (current->next != NULL)
+		current->next->prev = newNode; //step6
+	current->next = newNode; //step7
+}
+
+bool DoubleLinkedList::search(int rollNo, Node** previous, Node** current) {
+	*previous = NULL; //step1.a
+	*current = START; //step1.b
+	while (*current != NULL && (*current)->noMhs != rollNo) { //step1.c
+		*previous = *current; //step1.d
+		*current = (*current)->next; //step1.e
+	}
+	return (*current != NULL);
+}
