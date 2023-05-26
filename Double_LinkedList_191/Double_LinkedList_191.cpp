@@ -153,3 +153,4 @@ void DoubleLinkedList::searchData() {
 		cout << "\nList is empty" << endl;
 
 	}
+	
